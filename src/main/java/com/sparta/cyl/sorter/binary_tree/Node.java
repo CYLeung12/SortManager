@@ -1,4 +1,4 @@
-package com.sparta.cyl.binary_tree;
+package com.sparta.cyl.sorter.binary_tree;
 
 public class Node {
     private final int value;

@@ -1,4 +1,4 @@
-package com.sparta.cyl.binary_tree;
+package com.sparta.cyl.sorter.binary_tree;
 
 public class App {
     public static void main(String[] args) {
