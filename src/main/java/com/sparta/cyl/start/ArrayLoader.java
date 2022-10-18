@@ -1,4 +1,4 @@
-package com.sparta.cyl.controller;
+package com.sparta.cyl.start;
 
 import com.sparta.cyl.display.DisplayManager;
 
@@ -15,7 +15,6 @@ public class ArrayLoader {
         for (int i = 0; i < arraySize; i++){
             unsortedArray[i] = random.nextInt(1001);
         }
-       System.out.println(Arrays.toString(unsortedArray));
         return unsortedArray;
     }
 }

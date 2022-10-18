@@ -10,6 +10,12 @@ public class BinaryTree {
         this.rootNode = new Node(element);
     }
 
+
+    public static void run(){
+        int [] test = {12,778,34,2,999};
+
+    }
+
     public void addElementToTree(int element){
         addNodeToTree(rootNode, element);
     }

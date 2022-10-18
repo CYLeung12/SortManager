@@ -1,5 +1,5 @@
 package com.sparta.cyl.sorter;
-import com.sparta.cyl.controller.ArrayLoader;
+import com.sparta.cyl.start.ArrayLoader;
 import com.sparta.cyl.display.DisplayManager;
 
 import java.util.Arrays;
@@ -13,7 +13,7 @@ public class Bubblesorter{
         DisplayManager.printSortedArry(sortedArray);
     }
 
-    public static int[] sort(int[] arrayToBeSorted) {
+    private static int[] sort(int[] arrayToBeSorted) {
 
         for (int c = 0; c < arrayToBeSorted.length ; c++) {
             boolean isSorted = true;
@@ -27,7 +27,7 @@ public class Bubblesorter{
         return arrayToBeSorted;
     }
 
-    public static void swap(int[] numbers, int i, int temValue) {
+    private static void swap(int[] numbers, int i, int temValue) {
         if (numbers[i] > numbers[i + 1]) {
             numbers[i + 1] = numbers[i];
             numbers[i] = temValue;
