@@ -2,6 +2,7 @@ package com.sparta.cyl.start;
 
 import com.sparta.cyl.sorter.Bubblesorter;
 import com.sparta.cyl.sorter.MergeSorter;
+import com.sparta.cyl.sorter.binary_tree.BinaryTree;
 
 import java.util.Arrays;
 
@@ -12,6 +13,7 @@ public class App
         int[] test = {101, 34234, 233, 34,1,546,56,87};
         //[34, 1, 56, 87, 546]
 //            MergeSorter.run();
-        Bubblesorter.run();
+//        Bubblesorter.run();
+        BinaryTree.run();
     }
 }
