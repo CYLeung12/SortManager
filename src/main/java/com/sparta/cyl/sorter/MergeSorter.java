@@ -1,8 +1,6 @@
 package com.sparta.cyl.sorter;
 
-import com.sparta.cyl.display.DisplayManager;
 import com.sparta.cyl.logging.CustomLoggerConfiguration;
-import com.sparta.cyl.start.SortLoader;
 
 import java.util.Arrays;
 import java.util.logging.Level;

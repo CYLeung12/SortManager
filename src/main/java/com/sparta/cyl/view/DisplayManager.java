@@ -1,4 +1,4 @@
-package com.sparta.cyl.display;
+package com.sparta.cyl.view;
 
 import com.sparta.cyl.exception.ArraySizeLessThanZeroException;
 import com.sparta.cyl.exception.SwitchChoiceInvalidException;
