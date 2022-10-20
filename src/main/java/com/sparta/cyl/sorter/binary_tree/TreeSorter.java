@@ -1,67 +1,59 @@
 package com.sparta.cyl.sorter.binary_tree;
 
 import com.sparta.cyl.display.DisplayManager;
+import com.sparta.cyl.sorter.Sorter;
 import com.sparta.cyl.start.ArrayLoader;
 
-import java.util.Arrays;
+public class TreeSorter implements Sorter {
+    private Node rootNode = null;
+    public TreeSorter() {
 
-public class BinaryTree {
-
-    //public method for using the tree
-    //private methods for helping (hard work)
-    //hiding the node - elements are the numbers in the nodes
-    private final Node rootNode;
-
-    public BinaryTree(int element) {  //can't have a tree without a root node
+    }
+    public TreeSorter(int element) {  //can't have a tree without a root node
         this.rootNode = new Node(element);
     }
 
-    public static void run(){
+    @Override
+    public void run(){
         int[] unsortedArray = ArrayLoader.generateArray();
         DisplayManager.printUnsorrtedArray(unsortedArray);
-        BinaryTree tree = new BinaryTree(unsortedArray[0]);
+        TreeSorter tree = new TreeSorter(unsortedArray[0]);
         tree.addElements(unsortedArray);
-        System.out.println(Arrays.toString(tree.treeSort(tree.rootNode)));
-
-
+        tree.treeSort(tree.rootNode);
     }
 
     private void addElements(int[] unsortedArray) {
         for (int i = 1; i < unsortedArray.length; i++){
-            addElementToTree(unsortedArray[i]);
+            addElement(unsortedArray[i]);
         }
     }
-
-    public int getNumberOfElement(Node node){
+    
+    public int getNumberOfElements(Node node){
         if (node == null)
             return 0;
         else {
-            return 1 + getNumberOfElement(node.getLeftChild()) + getNumberOfElement(node.getRightChild());
+            return 1 + getNumberOfElements(node.getLeftChild()) + getNumberOfElements(node.getRightChild());
         }
     };
 
     public int[] treeSort(Node node){
         int element = 0;
         int[] test = new int[4];
-        int s = 0;
+
 
        if (node != null){
            treeSort(node.getLeftChild());
            element = node.getValue();
            System.out.println(element);
-           test[s] = element;
-           s++;
            treeSort(node.getRightChild());
        }
        return test;
-
-
-
     }
 
 
 
-    public void addElementToTree(int element){
+
+    public void addElement(int element){
         addNodeToTree(rootNode, element);
     }
 
@@ -106,6 +98,50 @@ public class BinaryTree {
             }
         }
         return null;
+    }
+
+
+    public class Node {
+        private final int value;
+        private TreeSorter.Node leftChild;  //Object type so can be null
+        private TreeSorter.Node  rightChild;
+
+        public Node(int value) {
+            this.value = value;
+        }
+
+        public void setLeftChild(TreeSorter.Node  leftChild) {
+            this.leftChild = leftChild;
+        }
+
+        public void setRightChild(TreeSorter.Node rightChild) {
+            this.rightChild = rightChild;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+
+        public TreeSorter.Node getLeftChild()  {
+            return leftChild;
+        }
+
+        public TreeSorter.Node  getRightChild() {
+            return rightChild;
+        }
+
+        public boolean isLeftChildEmpty(){
+            if (leftChild == null)
+                return true;
+            else return false;
+        }
+
+        public boolean isRightChildEmpty(){
+            if (rightChild == null)
+                return true;
+            else  return false;
+        }
     }
 
 

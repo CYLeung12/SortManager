@@ -4,9 +4,10 @@ import com.sparta.cyl.display.DisplayManager;
 
 import java.util.Arrays;
 
-public class MergeSorter {
+public class MergeSorter implements Sorter {
 
-    public static void run(){
+    @Override
+    public void run(){
         int[] unsortedArray = com.sparta.cyl.start.ArrayLoader.generateArray();
         DisplayManager.printUnsorrtedArray(unsortedArray);
         int[] sortedArray = mergeSort(unsortedArray);
