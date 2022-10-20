@@ -3,7 +3,7 @@ package com.sparta.cyl.start;
 import com.sparta.cyl.sorter.Bubblesorter;
 import com.sparta.cyl.sorter.MergeSorter;
 import com.sparta.cyl.sorter.Sorter;
-import com.sparta.cyl.sorter.binary_tree.TreeSorter;
+import com.sparta.cyl.sorter.TreeSorter;
 
 public class SorterFactory {
     public static Sorter getSorter(int sorterType){

@@ -12,7 +12,7 @@ public class Bubblesorter implements Sorter{
     private static final Logger logger = Logger.getLogger("Bubblesort-logger");
 
     @Override
-    public void run(){
+    public void runSorter(){
         CustomLoggerConfiguration.configureLogger(logger);
 
         int[] unsortedArray = ArrayLoader.generateArray();

@@ -1,25 +1,28 @@
-package com.sparta.cyl.sorter.binary_tree;
+package com.sparta.cyl.sorter;
 
 import com.sparta.cyl.display.DisplayManager;
-import com.sparta.cyl.sorter.Sorter;
-import com.sparta.cyl.start.ArrayLoader;
+
+import java.util.ArrayList;
 
 public class TreeSorter implements Sorter {
     private Node rootNode = null;
-    public TreeSorter() {
+   //couldn't figure out how to convert the inorder traversal to an array in "treeSort" method
+   // So I created a global arraylist to store the value. Not a good approach.
+    private static ArrayList<Integer> treeToArray = new ArrayList<Integer>();
 
-    }
+    public TreeSorter() {}
     public TreeSorter(int element) {  //can't have a tree without a root node
         this.rootNode = new Node(element);
     }
 
     @Override
-    public void run(){
-        int[] unsortedArray = ArrayLoader.generateArray();
+    public void runSorter(){
+        int[] unsortedArray = {45,3,8,7,19,10};
         DisplayManager.printUnsorrtedArray(unsortedArray);
         TreeSorter tree = new TreeSorter(unsortedArray[0]);
         tree.addElements(unsortedArray);
-        tree.treeSort(tree.rootNode);
+        treeSort(tree.rootNode, unsortedArray,0);
+        int[] sortedArray = treeToArray.stream().mapToInt(i->i).toArray();
     }
 
     private void addElements(int[] unsortedArray) {
@@ -27,36 +30,20 @@ public class TreeSorter implements Sorter {
             addElement(unsortedArray[i]);
         }
     }
-    
-    public int getNumberOfElements(Node node){
+
+
+    private static void treeSort(Node node, int[] arr, int index) {
         if (node == null)
-            return 0;
-        else {
-            return 1 + getNumberOfElements(node.getLeftChild()) + getNumberOfElements(node.getRightChild());
-        }
-    };
+            return;
 
-    public int[] treeSort(Node node){
-        int element = 0;
-        int[] test = new int[4];
-
-
-       if (node != null){
-           treeSort(node.getLeftChild());
-           element = node.getValue();
-           System.out.println(element);
-           treeSort(node.getRightChild());
-       }
-       return test;
+        treeSort(node.getLeftChild(), arr, index);
+        treeToArray.add(node.getValue());
+        treeSort(node.getRightChild(), arr, index);
     }
 
-
-
-
-    public void addElement(int element){
+    private void addElement(int element){
         addNodeToTree(rootNode, element);
     }
-
 
     //add node to the tree
     private Node addNodeToTree(Node node, int element){
@@ -78,7 +65,7 @@ public class TreeSorter implements Sorter {
         return node;
     }
 
-    public boolean findElement(int element){
+    private boolean findElement(int element){
         Node node = findNote(element);
         if (node != null){
             return true;
@@ -100,8 +87,7 @@ public class TreeSorter implements Sorter {
         return null;
     }
 
-
-    public class Node {
+    private class Node {
         private final int value;
         private TreeSorter.Node leftChild;  //Object type so can be null
         private TreeSorter.Node  rightChild;
@@ -121,7 +107,6 @@ public class TreeSorter implements Sorter {
         public int getValue() {
             return value;
         }
-
 
         public TreeSorter.Node getLeftChild()  {
             return leftChild;

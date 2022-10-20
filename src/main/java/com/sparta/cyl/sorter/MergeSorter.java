@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class MergeSorter implements Sorter {
 
     @Override
-    public void run(){
+    public void runSorter(){
         int[] unsortedArray = com.sparta.cyl.start.ArrayLoader.generateArray();
         DisplayManager.printUnsorrtedArray(unsortedArray);
         int[] sortedArray = mergeSort(unsortedArray);
