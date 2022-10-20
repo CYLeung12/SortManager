@@ -7,7 +7,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        Sorter sorter = SorterFactory.getSorter(DisplayManager.menu());
-        sorter.run();
+        SortLoader.start();
     }
 }

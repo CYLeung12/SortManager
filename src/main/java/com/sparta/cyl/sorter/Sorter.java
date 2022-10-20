@@ -1,6 +1,6 @@
 package com.sparta.cyl.sorter;
 
 public interface Sorter {
-    void runSorter();
+    int[] runSorter(int[] unsortedArray);
 
 }

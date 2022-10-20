@@ -1,17 +1,23 @@
 package com.sparta.cyl.sorter;
 
 import com.sparta.cyl.display.DisplayManager;
+import com.sparta.cyl.logging.CustomLoggerConfiguration;
+import com.sparta.cyl.start.SortLoader;
 
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MergeSorter implements Sorter {
+    private static final Logger logger = Logger.getLogger("MergeSort-logger");
+
 
     @Override
-    public void runSorter(){
-        int[] unsortedArray = com.sparta.cyl.start.ArrayLoader.generateArray();
-        DisplayManager.printUnsorrtedArray(unsortedArray);
+    public int[] runSorter(int[] unsortedArray){
+        CustomLoggerConfiguration.configureLogger(logger);
+
         int[] sortedArray = mergeSort(unsortedArray);
-        DisplayManager.printSortedArry(sortedArray);
+        return sortedArray;
     }
 
     private static int[] mergeSort(int[] arrayToBeSorted) {
@@ -21,15 +27,18 @@ public class MergeSorter implements Sorter {
             return arrayToBeSorted;
 
         int mid = arrayLen / 2;
+
         int[] leftArray = new int[mid];
         int[] rightArray = new int[arrayLen - mid];
 
         int rightArrayStart = 0;
         for (int i = 0; i < mid; i++){
             leftArray[i] = arrayToBeSorted[i];
+            logger.log(Level.FINE, "At "+ i + " iteration, leftArray:"+ Arrays.toString(leftArray));
         }
         for (int i = mid; i < arrayLen; i++){
             rightArray[rightArrayStart] = arrayToBeSorted[i];
+            logger.log(Level.FINE, "At "+ i + " iteration, rightArray:"+ Arrays.toString(rightArray));
             rightArrayStart++;
         }
 
@@ -74,6 +83,11 @@ public class MergeSorter implements Sorter {
         return sortedArray;
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "Merge Sort";
     }
 }
 

@@ -2,6 +2,7 @@ package com.sparta.cyl.display;
 
 import com.sparta.cyl.exception.ArraySizeLessThanZeroException;
 import com.sparta.cyl.exception.SwitchChoiceInvalidException;
+import com.sparta.cyl.sorter.Sorter;
 
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -31,14 +32,16 @@ public class DisplayManager {
             return arraySize;
         }
 
-    public static void printUnsorrtedArray(int[] unsortedArray){
+    public static void printUnsortedArray(int[] unsortedArray, Sorter sorter){
+        System.out.println("The sorting will use " + sorter);
         System.out.println("The original array:");
         System.out.println(Arrays.toString(unsortedArray));
 
     }
-    public static void printSortedArry(int[] sortedArray){
+    public static void printResult(int[] sortedArray, Sorter sorter, long timeElapsed){
         System.out.println("The sorted array:");
         System.out.println(Arrays.toString(sortedArray));
+        System.out.println((sorter + " took " + timeElapsed + " nanoseconds to sort the array."));
     }
 
     public static int menu(){
