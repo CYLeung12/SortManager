@@ -9,19 +9,18 @@ principles.
 
 1. Run the main method on App.java
 2. User will be presented a number of sort algorithms
-```java
+```
 Please select a sort method (enter 1, 2 or 3)
 1. Bubble Sort
 2. Merge Sort
 3. Binary Tree Sort
 ```
 3. Enter the choice via the command line
-4. Program will then ask for the length of an array
-5. Enter the length of an array
-6. An array will be randomly generated (value if between 0 to 1000) 
-7. The array will be sorted with the chosen sort algorithm
-8. The sorting result and time taken will be displayed
-```java
+4. Enter the length of an array
+5. An integer array will be randomly generated (value between 0 to 1000) 
+6. The array will be sorted with the chosen sort algorithm
+7. The sorting result and time taken will be displayed
+```
 The sorting will use Bubble Sort.
 The original array:
 [889, 646, 599, 914, 432, 254]
@@ -39,24 +38,24 @@ described as follows.
 
 ### Model: sorter package
 
-It includes the following classes:
-* BubbleSorter - consist of methods to execute bubble sort
-* MergeSorter - consist of methods to execute merge sort
-* TreeSorter - consist of methods to execute binary tree sort
+Includes the following classes:
+* BubbleSorter - consists of methods to execute bubble sort
+* MergeSorter - consists of methods to execute merge sort
+* TreeSorter - consists of methods to execute binary tree sort
 * Sorter - an interface implemented by all sorter
 
 ### View: view package
 
-It includes the class:
+Includes the class:
 * DisplayManager - responsible for printing messages, as well as taking and validating user inputs.
 
 ### Controller: start package
 
-It includes the following classes:
-* App - main method
-* SorterFactory - factory method to return an sorter object
+Includes the following classes:
+* App - holds the main method
+* SorterFactory - has factory method to return an sorter object
 * SortLoader - for kick-starting the sorting and generating a randomised array
 
 
-Apart from the three packages mentioned above, this program also has two packages holding helping tools. They are 
+Apart from the three packages mentioned above, this program also has two packages holding the helping tools: 
 "logging" package and "exception" package.
