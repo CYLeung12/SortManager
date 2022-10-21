@@ -33,16 +33,22 @@ public class DisplayManager {
         }
 
     public static void printUnsortedArray(int[] unsortedArray, Sorter sorter){
-        System.out.println("The sorting will use " + sorter);
+        System.out.println("The sorting will use " + sorter + ".");
         System.out.println("The original array:");
         System.out.println(Arrays.toString(unsortedArray));
 
     }
-    public static void printResult(int[] sortedArray, Sorter sorter, long timeElapsed){
+    public static void printSortedArray(int[] sortedArray){
         System.out.println("The sorted array:");
         System.out.println(Arrays.toString(sortedArray));
-        System.out.println((sorter + " took " + timeElapsed + " nanoseconds to sort the array."));
+
     }
+
+    public static void printTime(Sorter sorter, long timeElapsed){
+        System.out.println(("\n----Result----\n" + sorter + " took " + timeElapsed + " nanoseconds to sort the array" +
+                "."));
+    }
+
 
     public static int menu(){
         int menuInput = 0;

@@ -13,7 +13,7 @@ public class CustomFormatter extends Formatter {
 
     @Override
     public String format(LogRecord record) {
-        return LocalDate.now().format(DateTimeFormatter.ISO_DATE) +  " " + LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)) + " ["+ record.getSourceClassName().replace("com.sparta.cyl.sorter.","") + "." + record.getSourceMethodName()
+        return LocalDate.now().format(DateTimeFormatter.ISO_DATE) +  " " + LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM)) + " ["+ record.getSourceClassName().replace("com.sparta.cyl.","") + "." + record.getSourceMethodName()
                 + "] " + record.getLevel()
                 + ": " + record.getMessage()
                 + "\n";

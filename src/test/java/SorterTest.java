@@ -7,11 +7,7 @@ import org.junit.jupiter.api.*;
 import java.util.*;
 
 public class SorterTest {
-    private int[] unsortedArray;
     private List<Sorter> sorterList;
-
-
-
 
     @BeforeEach
     public void start(){
@@ -32,18 +28,30 @@ public class SorterTest {
     public void testOddArray(){
 
         int[] unsortedArray = {21, 2, 56, 166, 43};
-        int[] sortedArray = {2, 21, 43, 56, 166};
+        int[] expectedArray = {2, 21, 43, 56, 166};
 
         for (Sorter sorter: sorterList){
-            int[] sortedArrayBySorted =  sorter.runSorter(unsortedArray);
-            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorted.length);
-            Assertions.assertArrayEquals(sortedArray, sortedArrayBySorted);
+            int[] sortedArrayBySorter =  sorter.runSorter(unsortedArray);
+            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorter.length);
+            Assertions.assertArrayEquals(expectedArray, sortedArrayBySorter);
             for (int i = 0; i < unsortedArray.length; i ++){
-                Assertions.assertEquals(sortedArray[i], sortedArrayBySorted[i]);
+                Assertions.assertEquals(expectedArray[i], sortedArrayBySorter[i]);
             }
             for (int i = 0; i < unsortedArray.length - 1; i++){
-                Assertions.assertTrue(sortedArrayBySorted[i] <= sortedArrayBySorted[i+1]);
+                Assertions.assertTrue(sortedArrayBySorter[i] <= sortedArrayBySorter[i+1]);
             }
+
+            int sumUnsortedArray = 0;
+            int sumSortedArray = 0;
+            for (int i: unsortedArray){
+                sumUnsortedArray += i;
+            }
+            for (int i: sortedArrayBySorter){
+                sumSortedArray +=  i;
+                System.out.println(sumSortedArray);
+            }
+            Assertions.assertEquals(sumUnsortedArray, sumSortedArray);
+
         }
     }
 
@@ -52,18 +60,28 @@ public class SorterTest {
     @DisplayName("Test even size array")
     public void testEvenArray(){
         int[] unsortedArray = {18, 439, 510, 888, 973, 13};
-        int[] sortedArray = {13, 18, 439, 510, 888, 973};
+        int[] expectedArray = {13, 18, 439, 510, 888, 973};
 
         for (Sorter sorter: sorterList){
-            int[] sortedArrayBySorted =  sorter.runSorter(unsortedArray);
-            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorted.length);
-            Assertions.assertArrayEquals(sortedArray, sortedArrayBySorted);
+            int[] sortedArrayBySorter =  sorter.runSorter(unsortedArray);
+            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorter.length);
+            Assertions.assertArrayEquals(expectedArray, sortedArrayBySorter);
             for (int i = 0; i < unsortedArray.length; i ++){
-                Assertions.assertEquals(sortedArray[i], sortedArrayBySorted[i]);
+                Assertions.assertEquals(expectedArray[i], sortedArrayBySorter[i]);
             }
             for (int i = 0; i < unsortedArray.length - 1; i++){
-                Assertions.assertTrue(sortedArrayBySorted[i] <= sortedArrayBySorted[i+1]);
+                Assertions.assertTrue(sortedArrayBySorter[i] <= sortedArrayBySorter[i+1]);
             }
+            int sumUnsortedArray = 0;
+            int sumSortedArray = 0;
+            for (int i: unsortedArray){
+                sumUnsortedArray += i;
+            }
+            for (int i: sortedArrayBySorter){
+                sumSortedArray +=  i;
+                System.out.println(sumSortedArray);
+            }
+            Assertions.assertEquals(sumUnsortedArray, sumSortedArray);
         }
 }
         @Test
@@ -71,19 +89,29 @@ public class SorterTest {
         public void testOneLenArray(){
 
             int[] unsortedArray = {3};
-            int[] sortedArray = {3};
+            int[] expectedArray = {3};
 
             for (Sorter sorter: sorterList){
 
-                int[] sortedArrayBySorted =  sorter.runSorter(unsortedArray);
-                Assertions.assertEquals(unsortedArray.length, sortedArrayBySorted.length);
-                Assertions.assertArrayEquals(sortedArray, sortedArrayBySorted);
+                int[] sortedArrayBySorter =  sorter.runSorter(unsortedArray);
+                Assertions.assertEquals(unsortedArray.length, sortedArrayBySorter.length);
+                Assertions.assertArrayEquals(expectedArray, sortedArrayBySorter);
                 for (int i = 0; i < unsortedArray.length; i ++){
-                    Assertions.assertEquals(sortedArray[i], sortedArrayBySorted[i]);
+                    Assertions.assertEquals(expectedArray[i], sortedArrayBySorter[i]);
                 }
                 for (int i = 0; i < unsortedArray.length - 1; i++){
-                    Assertions.assertTrue(sortedArrayBySorted[i] <= sortedArrayBySorted[i+1]);
+                    Assertions.assertTrue(sortedArrayBySorter[i] <= sortedArrayBySorter[i+1]);
                 }
+                int sumUnsortedArray = 0;
+                int sumSortedArray = 0;
+                for (int i: unsortedArray){
+                    sumUnsortedArray += i;
+                }
+                for (int i: sortedArrayBySorter){
+                    sumSortedArray +=  i;
+                    System.out.println(sumSortedArray);
+                }
+                Assertions.assertEquals(sumUnsortedArray, sumSortedArray);
             }
     }
 
@@ -92,19 +120,29 @@ public class SorterTest {
     public void testDuplicatedValueArray(){
 
         int[] unsortedArray = {3, 3, 0, 0, 13, 13, 11};
-        int[] sortedArray = {0, 0, 3, 3, 11, 13, 13};
+        int[] expectedArray = {0, 0, 3, 3, 11, 13, 13};
 
         for (Sorter sorter: sorterList){
 
-            int[] sortedArrayBySorted =  sorter.runSorter(unsortedArray);
-            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorted.length);
-            Assertions.assertArrayEquals(sortedArray, sortedArrayBySorted);
+            int[] sortedArrayBySorter =  sorter.runSorter(unsortedArray);
+            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorter.length);
+            Assertions.assertArrayEquals(expectedArray, sortedArrayBySorter);
             for (int i = 0; i < unsortedArray.length; i ++){
-                Assertions.assertEquals(sortedArray[i], sortedArrayBySorted[i]);
+                Assertions.assertEquals(expectedArray[i], sortedArrayBySorter[i]);
             }
             for (int i = 0; i < unsortedArray.length - 1; i++){
-                Assertions.assertTrue(sortedArrayBySorted[i] <= sortedArrayBySorted[i+1]);
+                Assertions.assertTrue(sortedArrayBySorter[i] <= sortedArrayBySorter[i+1]);
             }
+            int sumUnsortedArray = 0;
+            int sumSortedArray = 0;
+            for (int i: unsortedArray){
+                sumUnsortedArray += i;
+            }
+            for (int i: sortedArrayBySorter){
+                sumSortedArray +=  i;
+                System.out.println(sumSortedArray);
+            }
+            Assertions.assertEquals(sumUnsortedArray, sumSortedArray);
         }
     }
 
@@ -117,15 +155,25 @@ public class SorterTest {
 
         for (Sorter sorter: sorterList){
 
-            int[] sortedArrayBySorted =  sorter.runSorter(unsortedArray);
-            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorted.length);
-            Assertions.assertArrayEquals(sortedArray, sortedArrayBySorted);
+            int[] sortedArrayBySorter =  sorter.runSorter(unsortedArray);
+            Assertions.assertEquals(unsortedArray.length, sortedArrayBySorter.length);
+            Assertions.assertArrayEquals(sortedArray, sortedArrayBySorter);
             for (int i = 0; i < unsortedArray.length; i ++){
-                Assertions.assertEquals(sortedArray[i], sortedArrayBySorted[i]);
+                Assertions.assertEquals(sortedArray[i], sortedArrayBySorter[i]);
             }
             for (int i = 0; i < unsortedArray.length - 1; i++){
-                Assertions.assertTrue(sortedArrayBySorted[i] <= sortedArrayBySorted[i+1]);
+                Assertions.assertTrue(sortedArrayBySorter[i] <= sortedArrayBySorter[i+1]);
             }
+            int sumUnsortedArray = 0;
+            int sumSortedArray = 0;
+            for (int i: unsortedArray){
+                sumUnsortedArray += i;
+            }
+            for (int i: sortedArrayBySorter){
+                sumSortedArray +=  i;
+                System.out.println(sumSortedArray);
+            }
+            Assertions.assertEquals(sumUnsortedArray, sumSortedArray);
         }
     }
 

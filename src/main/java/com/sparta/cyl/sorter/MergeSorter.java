@@ -1,52 +1,59 @@
 package com.sparta.cyl.sorter;
 
 import com.sparta.cyl.logging.CustomLoggerConfiguration;
+import com.sparta.cyl.logging.SorterLogger;
+import com.sparta.cyl.view.DisplayManager;
 
 import java.util.Arrays;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class MergeSorter implements Sorter {
-    private static final Logger logger = Logger.getLogger("MergeSort-logger");
-
-
+    public MergeSorter(){
+        SorterLogger.logger.log(Level.INFO, "--------------------Run Merge Sort--------------------");
+    }
     @Override
     public int[] runSorter(int[] unsortedArray){
-        CustomLoggerConfiguration.configureLogger(logger);
-
-        int[] sortedArray = mergeSort(unsortedArray);
+        CustomLoggerConfiguration.configureLogger(SorterLogger.logger);
+        long startTime = System.nanoTime();
+        int[] sortedArray = sort(unsortedArray);
+        long endTime = System.nanoTime();
+        timer(endTime-startTime);
         return sortedArray;
     }
 
-    private static int[] mergeSort(int[] arrayToBeSorted) {
-        int arrayLen = arrayToBeSorted.length;
+    @Override
+    public void timer(long timeElapsed){
+        DisplayManager.printTime(this, timeElapsed);
+    }
 
-        if (arrayLen < 2)
-            return arrayToBeSorted;
+    private static int[] sort(int[] unsortedArray) {
+        int arrayLength = unsortedArray.length;
+        int midLength = arrayLength / 2;
+        int[] newArray = new int[arrayLength];
+        int[] leftArray = new int[midLength];
+        int[] rightArray = new int[arrayLength - midLength];
 
-        int mid = arrayLen / 2;
+        if (arrayLength < 2)
+            return unsortedArray;
 
-        int[] leftArray = new int[mid];
-        int[] rightArray = new int[arrayLen - mid];
+        for (int i = 0; i < midLength; i++){
+            leftArray[i] = unsortedArray[i];
+        }
 
         int rightArrayStart = 0;
-        for (int i = 0; i < mid; i++){
-            leftArray[i] = arrayToBeSorted[i];
-            logger.log(Level.FINE, "At "+ i + " iteration, leftArray:"+ Arrays.toString(leftArray));
-        }
-        for (int i = mid; i < arrayLen; i++){
-            rightArray[rightArrayStart] = arrayToBeSorted[i];
-            logger.log(Level.FINE, "At "+ i + " iteration, rightArray:"+ Arrays.toString(rightArray));
-            rightArrayStart++;
+        for (int i = midLength; i < arrayLength; i++){
+            rightArray[rightArrayStart++] = unsortedArray[i];
         }
 
+        SorterLogger.logger.log(Level.INFO,
+                "Split Right Array "+ Arrays.toString(rightArray) + "; Split Left Array "+ Arrays.toString(leftArray));
 
-        mergeSort(leftArray);
-        mergeSort(rightArray);
-        return merge(leftArray, rightArray, arrayToBeSorted);
 
+        return merge(sort(leftArray), sort(rightArray), unsortedArray);
     }
-    private static int[] merge(int[] leftArray, int[] rightArray, int[] sortedArray){
+
+    private static int[] merge(int[] leftArray, int[] rightArray, int[] unsortedArray){
         int leftArraySize = leftArray.length;
         int rightArraySize = rightArray.length;
         int leftArrayIndex = 0;
@@ -54,35 +61,25 @@ public class MergeSorter implements Sorter {
         int mergedArrayIndex = 0;
 
         while (leftArrayIndex < leftArraySize && rightArrayIndex < rightArraySize){
-
-
             if (leftArray[leftArrayIndex] <= rightArray[rightArrayIndex]){
-                sortedArray[mergedArrayIndex] = leftArray[leftArrayIndex];
-                leftArrayIndex++;
+                unsortedArray[mergedArrayIndex++] = leftArray[leftArrayIndex++];
             }else {
-                sortedArray[mergedArrayIndex] = rightArray[rightArrayIndex];
-                rightArrayIndex++;
+                unsortedArray[mergedArrayIndex++] = rightArray[rightArrayIndex++];
             }
-            mergedArrayIndex++;
         }
 
         while (leftArrayIndex < leftArraySize){
-            sortedArray[mergedArrayIndex] = leftArray[leftArrayIndex];
-            mergedArrayIndex++;
-            leftArrayIndex++;
+            unsortedArray[mergedArrayIndex++] = leftArray[leftArrayIndex++];
         }
 
         while (rightArrayIndex < rightArraySize){
-            sortedArray[mergedArrayIndex] = rightArray[rightArrayIndex];
-            mergedArrayIndex++;
-            rightArrayIndex++;
+            unsortedArray[mergedArrayIndex++] = rightArray[rightArrayIndex++];
         }
+        SorterLogger.logger.log(Level.INFO,
+                "Merged array "+ Arrays.toString(unsortedArray));
 
-        return sortedArray;
-
-
+        return unsortedArray;
     }
-
     @Override
     public String toString() {
         return "Merge Sort";

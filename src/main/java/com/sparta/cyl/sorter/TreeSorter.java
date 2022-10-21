@@ -2,35 +2,50 @@ package com.sparta.cyl.sorter;
 
 
 import com.sparta.cyl.logging.CustomLoggerConfiguration;
+import com.sparta.cyl.logging.SorterLogger;
+import com.sparta.cyl.start.SortLoader;
+import com.sparta.cyl.view.DisplayManager;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.lang.model.element.Element;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TreeSorter implements Sorter {
     private static final Logger logger = Logger.getLogger("TreeSort-logger");
     private Node rootNode = null;
-    //couldn't figure out how to convert the inorder traversal to an array in "treeSort" method
-   // So I created a global List to store the value. Not a good approach.
-    private static List<Integer> treeToArray;
+    //couldn't figure out how to convert the value to an array inside "treeSort" method
+   // So I had to create a global array to store the value. Should have a better approach.
+    private static int[] treeToArray;
+    private static int indexForTreeToArray;
 
-    public TreeSorter() {}
-    public TreeSorter(int element) {  //can't have a tree without a root node
+    public TreeSorter() {
+        SorterLogger.logger.log(Level.INFO, "--------------------Run Tree Sort--------------------");
+
+    }
+    public TreeSorter(int element) {
         this.rootNode = new Node(element);
     }
 
 
     public int[] runSorter(int[] unsortedArray){
-        CustomLoggerConfiguration.configureLogger(logger);
+        CustomLoggerConfiguration.configureLogger(SorterLogger.logger);
 
-        treeToArray = new ArrayList<Integer>();
+        treeToArray = new int[unsortedArray.length];
+        indexForTreeToArray = 0;
+
         TreeSorter tree = new TreeSorter(unsortedArray[0]);
         tree.addElements(unsortedArray);
+        long startTime = System.nanoTime();
         treeSort(tree.rootNode, unsortedArray);
-        int[] sortedArray = treeToArray.stream().mapToInt(i->i).toArray();   //make the output format aligned with
-        // other sorters as Array instead of ArrayList
-        return sortedArray;
+        long endTime = System.nanoTime();
+        timer(endTime-startTime);
+        return treeToArray;
+    }
+
+    @Override
+    public void timer(long timeElapsed){
+        DisplayManager.printTime(this, timeElapsed);
     }
 
     private void addElements(int[] unsortedArray) {
@@ -42,11 +57,10 @@ public class TreeSorter implements Sorter {
     private static void treeSort(Node node, int[] arr) {
         if (node == null)
             return;
-
         treeSort(node.getLeftChild(), arr);
-        logger.log(Level.INFO, "Node value: " + node.getValue());
-        logger.log(Level.WARNING, "Find a better way to put the value into an array");
-        treeToArray.add(node.getValue());
+        treeToArray[indexForTreeToArray++] = node.getValue();
+        SorterLogger.logger.log(Level.INFO,
+                node.getValue() + " is stored in array" );
         treeSort(node.getRightChild(), arr);
     }
 
@@ -55,17 +69,21 @@ public class TreeSorter implements Sorter {
     }
 
     private void addNodeToTree(Node node, int element){
-        logger.log(Level.INFO, "Node: " + node.getValue() + "; element: " + element);
         if (element <= node.getValue()){
             if(node.isLeftChildEmpty()){
                 node.setLeftChild(new Node(element));
+                SorterLogger.logger.log(Level.INFO,
+                        "element " + element + " is put the left of Node " + node.getValue());
             }
             else {
+
                 addNodeToTree(node.getLeftChild(), element);
             }
-        } else if (element > node.getValue()){
+        } else {
             if (node.isRightChildEmpty()){
                 node.setRightChild(new Node(element));
+                SorterLogger.logger.log(Level.INFO,
+                        "element " + element + " is put the right of Node " + node.getValue());
             }
             else {
                 addNodeToTree(node.getRightChild(), element);
@@ -78,49 +96,42 @@ public class TreeSorter implements Sorter {
         return "Binary Tree Sort";
     }
 
-    public List<Integer> getTreeToArray() {
-        return treeToArray;
-    }
 
-    private class Node {
+    private static class Node {
         private final int value;
         private TreeSorter.Node leftChild;
         private TreeSorter.Node  rightChild;
 
-        public Node(int value) {
+        private Node(int value) {
             this.value = value;
         }
 
-        public void setLeftChild(TreeSorter.Node  leftChild) {
+        private void setLeftChild(TreeSorter.Node  leftChild) {
             this.leftChild = leftChild;
         }
 
-        public void setRightChild(TreeSorter.Node rightChild) {
+        private void setRightChild(TreeSorter.Node rightChild) {
             this.rightChild = rightChild;
         }
 
-        public int getValue() {
+        private int getValue() {
             return value;
         }
 
-        public TreeSorter.Node getLeftChild()  {
+        private TreeSorter.Node getLeftChild()  {
             return leftChild;
         }
 
-        public TreeSorter.Node  getRightChild() {
+        private TreeSorter.Node  getRightChild() {
             return rightChild;
         }
 
-        public boolean isLeftChildEmpty(){
-            if (leftChild == null)
-                return true;
-            else return false;
+        private boolean isLeftChildEmpty(){
+            return leftChild == null;
         }
 
-        public boolean isRightChildEmpty(){
-            if (rightChild == null)
-                return true;
-            else  return false;
+        private boolean isRightChildEmpty(){
+            return rightChild == null;
         }
     }
 
