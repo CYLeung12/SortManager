@@ -1,71 +1,74 @@
-package com.sparta.cyl.sorter;
-
+package com.sparta.cyl.sorter.binarytree;
 
 import com.sparta.cyl.logging.CustomLoggerConfiguration;
 import com.sparta.cyl.logging.SorterLogger;
-import com.sparta.cyl.start.SortLoader;
+import com.sparta.cyl.sorter.Sorter;
 import com.sparta.cyl.view.DisplayManager;
 
-import javax.lang.model.element.Element;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TreeSorter implements Sorter {
+public class BinaryTree {
+
     private static final Logger logger = Logger.getLogger("TreeSort-logger");
     private Node rootNode = null;
+    private int nodeCount = 1;
     //couldn't figure out how to convert the value to an array inside "treeSort" method
    // So I had to create a global array to store the value. Should have a better approach.
-    private static int[] treeToArray;
-    private static int indexForTreeToArray;
 
-    public TreeSorter() {
+
+
+    public BinaryTree() {
         SorterLogger.logger.log(Level.INFO, "--------------------Run Tree Sort--------------------");
-
     }
-    public TreeSorter(int element) {
-        this.rootNode = new Node(element);
-    }
-
-
-    public int[] runSorter(int[] unsortedArray){
-        CustomLoggerConfiguration.configureLogger(SorterLogger.logger);
-
-        treeToArray = new int[unsortedArray.length];
-        indexForTreeToArray = 0;
-
-        TreeSorter tree = new TreeSorter(unsortedArray[0]);
-        tree.addElements(unsortedArray);
-        long startTime = System.nanoTime();
-        treeSort(tree.rootNode, unsortedArray);
-        long endTime = System.nanoTime();
-        timer(endTime-startTime);
-        return treeToArray;
+    public BinaryTree(int[] arr) {
+        this.rootNode = new Node(arr[0]);
+        addElements(arr);
     }
 
-    @Override
-    public void timer(long timeElapsed){
-        DisplayManager.printTime(this, timeElapsed);
-    }
 
+//    public int[] runSorter(int[] unsortedArray){
+//        CustomLoggerConfiguration.configureLogger(SorterLogger.logger);
+//        BinaryTree tree = new BinaryTree(unsortedArray);
+//        return getArray(tree);
+//
+//    }
+//
+//    public int[] getArray(BinaryTree tree){
+//        int[] treeToArray = new int[tree.nodeCount];
+//        long startTime = System.nanoTime();
+//        treeSort(tree.rootNode, treeToArray);
+//        long endTime = System.nanoTime();
+//        timer(endTime-startTime);
+//        return treeToArray;
+//    }
+//
+//    private void treeSort(Node node, int[] arr) {
+//        if (node == null)
+//            return;
+//        treeSort(node.getLeftChild(), arr);
+//        arr[indexForTreeToArray++] = node.getValue();
+//        SorterLogger.logger.log(Level.INFO,
+//                node.getValue() + " is stored in array" );
+//        treeSort(node.getRightChild(), arr);
+//    }
+
+
+//    @Override
+//    public void timer(long timeElapsed){
+//        DisplayManager.printTime(this, timeElapsed);
+//    }
+//
     private void addElements(int[] unsortedArray) {
         for (int i = 1; i < unsortedArray.length; i++){
             addElement(unsortedArray[i]);
         }
     }
 
-    private static void treeSort(Node node, int[] arr) {
-        if (node == null)
-            return;
-        treeSort(node.getLeftChild(), arr);
-        treeToArray[indexForTreeToArray++] = node.getValue();
-        SorterLogger.logger.log(Level.INFO,
-                node.getValue() + " is stored in array" );
-        treeSort(node.getRightChild(), arr);
-    }
 
     private void addElement(int element){
         addNodeToTree(rootNode, element);
+        nodeCount++;
     }
 
     private void addNodeToTree(Node node, int element){
@@ -91,38 +94,47 @@ public class TreeSorter implements Sorter {
         }
     }
 
+    public Node getRootNode() {
+        return rootNode;
+    }
+
+    public int getNodeCount() {
+        return nodeCount;
+    }
+
+
     @Override
     public String toString() {
         return "Binary Tree Sort";
     }
 
 
-    private static class Node {
+    static class Node {
         private final int value;
-        private TreeSorter.Node leftChild;
-        private TreeSorter.Node  rightChild;
+        private Node leftChild;
+        private Node  rightChild;
 
         private Node(int value) {
             this.value = value;
         }
 
-        private void setLeftChild(TreeSorter.Node  leftChild) {
+        private void setLeftChild(Node  leftChild) {
             this.leftChild = leftChild;
         }
 
-        private void setRightChild(TreeSorter.Node rightChild) {
+        private void setRightChild(Node rightChild) {
             this.rightChild = rightChild;
         }
 
-        private int getValue() {
+        int getValue() {
             return value;
         }
 
-        private TreeSorter.Node getLeftChild()  {
+        Node getLeftChild()  {
             return leftChild;
         }
 
-        private TreeSorter.Node  getRightChild() {
+        Node  getRightChild() {
             return rightChild;
         }
 
